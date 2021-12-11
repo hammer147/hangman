@@ -39,12 +39,14 @@ const Home: NextPage = () => {
         if (!correctLetters.includes(letter)) {
           setCorrectLetters(prev => [...prev, letter])
         } else {
+          toast.dismiss()
           toast.info('You already entered this letter.')
         }
       } else {
         if (!wrongLetters.includes(letter)) {
           setWrongLetters(prev => [...prev, letter])
         } else {
+          toast.dismiss()
           toast.info('You already entered this letter.') 
         }
       }
@@ -69,21 +71,20 @@ const Home: NextPage = () => {
 
   return (
     <div>
-      <ToastContainer />
       <Header />
       <div className={styles.gameContainer}>
         <Figure errors={wrongLetters.length} />
         <WrongLetters wrongLetters={wrongLetters} />
         <Word selectedWord={selectedWord} correctLetters={correctLetters} />
       </div>
+      <ToastContainer />
       <Modal 
         isOpen={!!modalText}
-        className={styles.Modal}
-        overlayClassName={styles.Overlay}
+        className={styles.modal}
+        overlayClassName={styles.overlay}
       >
         <h1>{modalText}</h1>
         <h3>the word was</h3>
-        
         <h1>{selectedWord.toLocaleUpperCase()}</h1>
         <button onClick={reset}>New Game</button>
       </Modal>

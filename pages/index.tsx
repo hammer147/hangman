@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { checkWin } from '../helpers'
 import { Letter } from '../typings'
 import styles from '../styles/Home.module.css'
@@ -12,7 +12,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import Modal from 'react-modal'
 
 
-const words = ['eventlistener', 'timeout', 'sideeffect', 'cleanup'] // lowercase letters
+const words = ['mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune'] // lowercase letters
 const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
   'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 
@@ -25,29 +25,39 @@ const Home: NextPage = () => {
   const [wrongLetters, setWrongLetters] = useState<Letter[]>([])
   const [modalText, setModalText] = useState('')
 
+  // to trigger the keyboard on mobile devices
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    inputRef.current!.focus()
+  }, [])
+
+  const onWordClick = () => { inputRef.current!.focus() }
+  //
+
   const reset = () => {
     setSelectedWord(() => words[Math.floor(Math.random() * words.length)])
     setCorrectLetters([])
     setWrongLetters([])
     setModalText('')
+    inputRef.current!.value=''
   }
 
   const handleKeyDown = useCallback(({ key }: KeyboardEvent) => {
+    toast.dismiss()
     if (letters.includes(key)) {
       const letter = key.toLowerCase() as Letter
       if (selectedWord.includes(letter)) {
         if (!correctLetters.includes(letter)) {
           setCorrectLetters(prev => [...prev, letter])
         } else {
-          toast.dismiss()
           toast.info('You already entered this letter.')
         }
       } else {
         if (!wrongLetters.includes(letter)) {
           setWrongLetters(prev => [...prev, letter])
         } else {
-          toast.dismiss()
-          toast.info('You already entered this letter.') 
+          toast.info('You already entered this letter.')
         }
       }
     }
@@ -73,12 +83,16 @@ const Home: NextPage = () => {
     <div>
       <Header />
       <div className={styles.gameContainer}>
-        <Figure errors={wrongLetters.length} />
-        <WrongLetters wrongLetters={wrongLetters} />
-        <Word selectedWord={selectedWord} correctLetters={correctLetters} />
+        <div className={styles.row}>
+          <Figure errors={wrongLetters.length} />
+          <WrongLetters wrongLetters={wrongLetters} />
+        </div>
+        <Word selectedWord={selectedWord} correctLetters={correctLetters} onWordClick={onWordClick}/>
+        {/* {to trigger keyboard on mobile devices} */}
+        <input className={styles.hidden} type="text" ref={inputRef} />
       </div>
       <ToastContainer />
-      <Modal 
+      <Modal
         isOpen={!!modalText}
         className={styles.modal}
         overlayClassName={styles.overlay}

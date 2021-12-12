@@ -1,9 +1,15 @@
 .gameContainer {
-  padding: 20px 30px;
-  position: relative;
-  margin: auto;
-  height: 350px;
-  width: 450px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.row {
+  display: flex;
+}
+
+.hidden {
+  display: none;
 }
 
 /* Modal: note that .modal is a child of .overlay */

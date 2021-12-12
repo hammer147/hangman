@@ -9,7 +9,8 @@
 }
 
 .hidden {
-  display: none;
+  /* display: none; */
+  visibility: hidden;
 }
 
 /* Modal: note that .modal is a child of .overlay */

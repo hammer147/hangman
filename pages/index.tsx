@@ -25,22 +25,11 @@ const Home: NextPage = () => {
   const [wrongLetters, setWrongLetters] = useState<Letter[]>([])
   const [modalText, setModalText] = useState('')
 
-  // to trigger the keyboard on mobile devices
-  const inputRef = useRef<HTMLInputElement>(null)
-
-  useEffect(() => {
-    inputRef.current!.focus()
-  }, [])
-
-  const onWordClick = () => { inputRef.current!.focus() }
-  //
-
   const reset = () => {
     setSelectedWord(() => words[Math.floor(Math.random() * words.length)])
     setCorrectLetters([])
     setWrongLetters([])
     setModalText('')
-    inputRef.current!.value=''
   }
 
   const handleKeyDown = useCallback(({ key }: KeyboardEvent) => {
@@ -87,9 +76,7 @@ const Home: NextPage = () => {
           <Figure errors={wrongLetters.length} />
           <WrongLetters wrongLetters={wrongLetters} />
         </div>
-        <Word selectedWord={selectedWord} correctLetters={correctLetters} onWordClick={onWordClick}/>
-        {/* {to trigger keyboard on mobile devices} */}
-        <input className={styles.hidden} type="text" ref={inputRef} />
+        <Word selectedWord={selectedWord} correctLetters={correctLetters}/>
       </div>
       <ToastContainer />
       <Modal

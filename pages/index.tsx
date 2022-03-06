@@ -29,23 +29,23 @@ const Home: NextPage = () => {
 
 
 
-  function fullScreenCheck() {
-    if (document.fullscreenElement) return
-    return document.documentElement.requestFullscreen()
-  }
+  // function fullScreenCheck() {
+  //   if (document.fullscreenElement) return
+  //   return document.documentElement.requestFullscreen()
+  // }
 
-  useEffect(() => {
-    (async () => {
-      try {
-        await fullScreenCheck()
-      } catch (err) {
-        alert(err)
-      }
-      screen.orientation.lock('portrait')
-        .then(() => alert('Locked to portrait'))
-        .catch(error => alert(error))
-    })()
-  }, [])
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       await fullScreenCheck()
+  //     } catch (err) {
+  //       alert(err)
+  //     }
+  //     screen.orientation.lock('portrait')
+  //       .then(() => alert('Locked to portrait'))
+  //       .catch(error => alert(error))
+  //   })()
+  // }, [])
 
 
 

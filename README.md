@@ -23,8 +23,13 @@ Even if the user presses a text input and types letters on the keyboard, keydown
 
 Use your own keyboard component. You can show or hide it as you wish.
 
-Keep in mind that it takes space, so you might want to use media queries or force a portrait view.
+Keep in mind that it takes space, so you might want to use media queries.
 
-This can be done by adding "orientation": "portrait" to your manifest.
+You could also force a portrait view by setting the "display" and "orientation" in your manifest as follows:
 
-Note that the orientation setting in the manifest will only work when the PWA is actually installed and not when the user just runs it in a browser.
+```json
+"display": "fullscreen",
+"orientation": "portrait",
+```
+
+Note however that these settings in the manifest will only work when the PWA is actually installed and not when the user just runs it in a browser.

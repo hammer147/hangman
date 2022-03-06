@@ -26,6 +26,13 @@ const Home: NextPage = () => {
   const [wrongLetters, setWrongLetters] = useState<Letter[]>([])
   const [modalText, setModalText] = useState('')
 
+  useEffect(() => {
+    screen.orientation.lock('portrait')
+      .then(()=> alert('Locked to portrait'))
+      .catch(error => alert(error))
+  }, [])
+  
+
   const reset = () => {
     setSelectedWord(() => words[Math.floor(Math.random() * words.length)])
     setCorrectLetters([])

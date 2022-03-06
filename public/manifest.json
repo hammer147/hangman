@@ -2,6 +2,7 @@
     "theme_color": "#2980b9",
     "background_color": "#34495e",
     "display": "standalone",
+    "orientation": "portrait",
     "scope": "/",
     "start_url": "/",
     "short_name": "Hangman",

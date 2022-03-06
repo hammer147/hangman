@@ -10,6 +10,7 @@ import Word from '../components/word'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import Modal from 'react-modal'
+import Keyboard from '../components/keyboard/keyboard'
 
 
 const words = ['mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune'] // lowercase letters
@@ -32,7 +33,7 @@ const Home: NextPage = () => {
     setModalText('')
   }
 
-  const handleKeyDown = useCallback(({ key }: KeyboardEvent) => {
+  const handleKeyInput = useCallback((key: string) => {
     toast.dismiss()
     if (letters.includes(key)) {
       const letter = key.toLowerCase() as Letter
@@ -53,11 +54,12 @@ const Home: NextPage = () => {
   }, [correctLetters, selectedWord, wrongLetters])
 
   useEffect(() => {
+    const handleKeyDown = ({ key }: KeyboardEvent) => handleKeyInput(key)
     window.addEventListener('keydown', handleKeyDown)
     return () => {
       window.removeEventListener('keydown', handleKeyDown)
     }
-  }, [handleKeyDown])
+  }, [handleKeyInput])
 
   useEffect(() => {
     const status = checkWin(selectedWord, correctLetters, wrongLetters)
@@ -69,15 +71,16 @@ const Home: NextPage = () => {
   }, [correctLetters, selectedWord, wrongLetters])
 
   return (
-    <div>
+    <div className={styles.container}>
       <Header />
-      <div className={styles.gameContainer}>
+      <div className={styles.main}>
         <div className={styles.row}>
           <Figure errors={wrongLetters.length} />
           <WrongLetters wrongLetters={wrongLetters} />
         </div>
-        <Word selectedWord={selectedWord} correctLetters={correctLetters}/>
+        <Word selectedWord={selectedWord} correctLetters={correctLetters} />
       </div>
+      <Keyboard handleKeyInput={handleKeyInput} />
       <ToastContainer />
       <Modal
         isOpen={!!modalText}

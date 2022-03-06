@@ -1,6 +1,20 @@
-.gameContainer {
+.container {
+  background-color: #34495e;
+  color: #fff;
+  /* background-color: rgb(75, 93, 236); */
+  /* background-color: rgb(230, 188, 110); */
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  align-items: center;
+}
+
+.main {
+  padding: 4rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 

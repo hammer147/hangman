@@ -32,4 +32,16 @@ You could also force a portrait view by setting the "display" and "orientation" 
 "orientation": "portrait",
 ```
 
+This can lead to some white space problems, easily fixed in css:
+
+```css
+html,body {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden;
+}
+```
+
 Note however that these settings in the manifest will only work when the PWA is actually installed and not when the user just runs it in a browser.

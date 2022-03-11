@@ -1,12 +1,9 @@
 .container {
   background-color: #34495e;
   color: #fff;
-  /* background-color: rgb(75, 93, 236); */
-  /* background-color: rgb(230, 188, 110); */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
 }
 

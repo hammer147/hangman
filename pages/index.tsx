@@ -11,9 +11,9 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import Modal from 'react-modal'
 import Keyboard from '../components/keyboard/keyboard'
+import { useWordSelection } from '../hooks/useWordSelection'
 
 
-const words = ['mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune'] // lowercase letters
 const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
   'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 
@@ -21,13 +21,13 @@ Modal.setAppElement('#__next')
 
 const Home: NextPage = () => {
 
-  const [selectedWord, setSelectedWord] = useState(() => words[Math.floor(Math.random() * words.length)])
+  const [selectedWord, resetSelectedWord] = useWordSelection()
   const [correctLetters, setCorrectLetters] = useState<Letter[]>([])
   const [wrongLetters, setWrongLetters] = useState<Letter[]>([])
   const [modalText, setModalText] = useState('')
 
   const reset = () => {
-    setSelectedWord(() => words[Math.floor(Math.random() * words.length)])
+    resetSelectedWord()
     setCorrectLetters([])
     setWrongLetters([])
     setModalText('')

@@ -1,6 +1,9 @@
 import { Letter } from '../typings'
 
-export const checkWin = (selectedWord: string, correctLetters: Letter[], wrongLetters: Letter[] ): string => {
+export const checkWin = (selectedWord: string, correctLetters: Letter[], wrongLetters: Letter[]): string => {
+  // the word is initially an empty string until we receive a response from the server (see useWordSelection)
+  if (selectedWord === '') return ''
+
   // check for win
   let status = 'win'
 
